@@ -1,0 +1,32 @@
+name: Light Notify
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+      - name: Install dependencies
+        run: pip install requests
+      - name: Run script
+        run: python notify.py
+        env:
+          SVITLO_KEY1: ${{ secrets.SVITLO_KEY1 }}
+          SVITLO_KEY2: ${{ secrets.SVITLO_KEY2 }}
+          NOTIFY_BOT_TOKEN: ${{ secrets.NOTIFY_BOT_TOKEN }}
+          NOTIFY_CHAT_ID: ${{ secrets.NOTIFY_CHAT_ID }}
+      - name: Commit and Push state
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/svitlohot/merge_bots.git
+          git add state.json
+          git commit -m "Оновлення стану світла" || exit 0
+          git push || git push || git push
