@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 # ============================================
 
 SVITLO_KEY1    = os.environ.get("SVITLO_KEY1", "")      # Хотянівка СТ
-SVITLO_KEY2    = os.environ.get("SVITLO_KEY2", "")      # ПБХ/Осещина
+SVITLO_KEY2    = os.environ.get("SVITLO_KEY2", "")      # ПБХ/Осещина/МР
 BOT_TOKEN      = os.environ.get("NOTIFY_BOT_TOKEN", "")
 CHAT_ID        = os.environ.get("NOTIFY_CHAT_ID", "")
 STATE_FILE     = "state.json"
@@ -88,7 +88,7 @@ def build_message(s1, s2):
         f"💡 <b>Статус світла</b> • {time_str}",
         f"",
         f"{s1_icon} Хотянівка СТ: світло <b>{s1_text}</b>",
-        f"{s2_icon} ПБХ/Осещина: світло <b>{s2_text}</b>",
+        f"{s2_icon} ПБХ/Осещина/МР: світло <b>{s2_text}</b>",
     ]
 
     if s1 == "on" and s2 == "on":
